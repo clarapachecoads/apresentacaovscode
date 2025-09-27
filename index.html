@@ -1,40 +1,388 @@
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<html lang="pt-BR">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+	<title>Visual Studio Code - Apresentação</title>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css">
+	<link rel="stylesheet" href="style.css">
+	
+	<!-- Ícones -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	
+	<style>
+		:root {
+			--vscode-blue: #0078d4;
+			--vscode-dark: #1e1e1e;
+			--vscode-light: #f3f3f3;
+			--accent-color: #0078d4;
+		}
+		
+		body {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		.reveal h1, .reveal h2, .reveal h3 {
+			font-weight: 700;
+			color: var(--vscode-blue);
+			text-transform: none;
+			letter-spacing: -0.5px;
+		}
+		
+		.reveal h1 {
+			font-size: 3.5rem;
+			margin-bottom: 1.5rem;
+		}
+		
+		.reveal h2 {
+			font-size: 2.8rem;
+			border-bottom: 3px solid var(--vscode-blue);
+			padding-bottom: 0.5rem;
+			display: inline-block;
+		}
+		
+		.reveal h3 {
+			font-size: 2.2rem;
+			color: var(--vscode-light);
+		}
+		
+		.reveal p, .reveal li {
+			font-size: 1.8rem;
+			line-height: 1.5;
+		}
+		
+		.reveal ul {
+			text-align: left;
+			margin-left: 2rem;
+		}
+		
+		.reveal li {
+			margin-bottom: 1rem;
+		}
+		
+		.reveal strong {
+			color: var(--vscode-blue);
+		}
+		
+		.reveal section img {
+			border: none;
+			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+			border-radius: 8px;
+			max-height: 400px;
+		}
+		
+		/* Slide de abertura */
+		.title-slide {
+			background: linear-gradient(135deg, var(--vscode-dark) 0%, #2d2d30 100%);
+		}
+		
+		.title-slide h1 {
+			font-size: 4rem;
+			color: white;
+			text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+			margin-bottom: 2rem;
+		}
+		
+		.vscode-icon {
+			font-size: 8rem;
+			color: var(--vscode-blue);
+			margin-bottom: 2rem;
+			display: inline-block;
+			animation: pulse 2s infinite;
+		}
+		
+		@keyframes pulse {
+			0% { transform: scale(1); }
+			50% { transform: scale(1.05); }
+			100% { transform: scale(1); }
+		}
+		
+		.presenters {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-top: 3rem;
+		}
+		
+		.presenter {
+			background: rgba(255,255,255,0.1);
+			padding: 1rem 1.5rem;
+			border-radius: 10px;
+			backdrop-filter: blur(5px);
+		}
+		
+		/* Slides de conteúdo */
+		.content-slide {
+			background: linear-gradient(135deg, #1e1e1e 0%, #252526 100%);
+		}
+		
+		/* Cards para vantagens/desvantagens */
+		.feature-cards {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-top: 2rem;
+		}
+		
+		.feature-card {
+			background: rgba(255,255,255,0.05);
+			border-radius: 10px;
+			padding: 1.5rem;
+			width: 45%;
+			box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+			border-left: 4px solid var(--vscode-blue);
+		}
+		
+		.feature-card.advantages {
+			border-left-color: #4CAF50;
+		}
+		
+		.feature-card.disadvantages {
+			border-left-color: #F44336;
+		}
+		
+		.feature-card h3 {
+			margin-top: 0;
+			font-size: 1.8rem;
+		}
+		
+		/* Ícones personalizados */
+		.icon {
+			display: inline-block;
+			margin-right: 0.5rem;
+			font-size: 1.5rem;
+		}
+		
+		/* Transições suaves */
+		.reveal .slides section .fragment {
+			opacity: 0;
+			transition: all 0.5s ease;
+		}
+		
+		.reveal .slides section .fragment.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		
+		/* Footer */
+		.footer {
+			position: absolute;
+			bottom: 20px;
+			left: 0;
+			right: 0;
+			text-align: center;
+			font-size: 1.2rem;
+			color: rgba(255,255,255,0.5);
+		}
+		
+		/* Slide final */
+		.final-slide {
+			background: linear-gradient(135deg, var(--vscode-blue) 0%, #005a9e 100%);
+			color: white;
+		}
+		
+		.final-slide h2 {
+			color: white;
+			border-bottom: none;
+		}
+		
+		.thank-you {
+			font-size: 4rem;
+			margin-bottom: 2rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- Slide de abertura -->
+			<section data-background-transition="zoom">
+				<div class="vscode-icon">
+					<i class="fas fa-code"></i>
+				</div>
+				<h1>Visual Studio Code</h1>
+				
+				<div class="presenters">
+					<div class="presenter">Juliane Dias</div>
+					<div class="presenter">Maria Clara</div>
+					<div class="presenter">Luiz Eduardo</div>
+				</div>
+				
+			</section>
+			
+			<!-- O que é o VSCode -->
+			<section class="content-slide">
+				<section>
+					<h2>O que é o VSCode?</h2>
+					<ul>
+						<li class="fragment"><span class="icon"><i class="fas fa-laptop-code"></i></span> Lançado em 2015 pela Microsoft, atualmente um dos editores mais populares (utilizado por 70% dos desenvolvedore)</li>
+						<li class="fragment"><span class="icon"><i class="fas fa-desktop"></i></span> Multipataforma (MacOS, Linux e Windows)</li>
+					</ul>
+				</section>
+			</section>
+
+			<!-- Seção de Desempenho -->
+			<section class="content-slide">
+				<section>
+					<h2>Desempenho</h2>
+					<p>Como o VSCode se comporta em termos de performance</p>
+				</section>
+				<section>
+					<h2>Vantagens</h2>
+					<div class="feature-cards">
+						<div class="feature-card advantages">
+							<h3><i class="fas fa-check-circle"></i> Pontos Fortes</h3>
+							<ul>
+								<li class="fragment">Leve na instalação</li>
+								<li class="fragment">Inicia rápido</li>
+								<li class="fragment">Responsivo</li>
+								<li class="fragment">Consumo moderado de recursos</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h2>Desvantagens</h2>
+					<div class="feature-cards">
+						<div class="feature-card disadvantages">
+							<h3><i class="fas fa-exclamation-triangle"></i> Pontos de Atenção</h3>
+							<ul>
+								<li class="fragment">Lentidão com muitas extensões</li>
+								<li class="fragment">Perda de desempenho para projetos complexos</li>
+								<li class="fragment">Pode consumir muita memória RAM com muitos arquivos abertos</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+			</section>
+
+			<!-- Seção de Usabilidade -->
+			<section class="content-slide">
+				<section>
+					<h2>Usabilidade</h2>
+					<p>Experiência do usuário e funcionalidades</p>
+				</section>
+				<section>
+					<h2>Vantagens</h2>
+					<div class="advantages">
+						<h3><i class="fas fa-palette"></i> Personalização e Extensões</h3>
+						<p class="fragment">Mercado de extensões com milhares de opções</p>
+						<img src="img/Captura de tela 2025-09-27 124529.png" class="fragment">
+					</div>
+				</section>
+				<section>
+					<div class="advantages">
+						<h3><i class="fas fa-robot"></i> Inteligência Artificial</h3>
+						<p class="fragment">Recursos de IA integrados para produtividade</p>
+						<img src="img/ia.png" class="fragment">
+					</div>
+				</section>
+				<section>
+					<div class="advantages">
+						<h3><i class="fas fa-users"></i> Multi perfis e telas</h3>
+						<p class="fragment">Trabalhe em múltiplos projetos simultaneamente</p>
+						<img src="img/perfil.png" class="fragment">
+					</div>
+				</section>
+				<section>
+					<h2>Desvantagens</h2>
+					<div class="disadvantages">
+						<h3><i class="fas fa-tools"></i> Configuração Necessária</h3>
+						<ul>
+							<li class="fragment">Dependência de extensões para funcionalidades avançadas</li>
+							<li class="fragment">Configuração inicial pode ser complexa para iniciantes</li>
+							<li class="fragment">Curva de aprendizado para recursos avançados</li>
+						</ul>
+					</div>
+				</section>
+			</section>
+
+			<!-- Recursos Nativos -->
+			<section class="content-slide">
+				<section>
+					<h2>Recursos Nativos</h2>
+					<p>Funcionalidades integradas sem necessidade de extensões</p>
+				</section>
+				<section>
+					<h3><i class="fas fa-terminal"></i> Terminal Integrado</h3>
+					<p class="fragment">Acesso direto ao terminal no editor</p>
+					<img src="img/terminal.png" class="fragment">
+				</section>
+				<section>
+					<h3><i class="fab fa-git-alt"></i> Controle de Versão (Git)</h3>
+					<p class="fragment">Interface visual completa para operações Git</p>
+					<img src="img/gitr.png" class="fragment">
+				</section>
+				<section>
+					<h3><i class=""></i>Go Live</h3>
+					<p class="fragment">Recurso para rodar o projeto localmente</p>
+					<img src="img/golive.png" class="fragment">
+				</section>
+			</section>
+
+			</section>
+
+			<!-- Público-alvo -->
+			<section class="content-slide">
+				<section>
+					<h2>Para Quem o VS Code é Ideal?</h2>
+					<p>Perfis de desenvolvedores que mais se beneficiam</p>
+				</section>
+				<section>
+					<div class="feature-cards">
+						<div class="feature-card">
+							<h3><i class="fas fa-globe"></i> Desenvolvedores Web</h3>
+							<p class="fragment">Front-end e Back-end</p>
+						</div>
+						<div class="feature-card">
+							<h3><i class="fas fa-graduation-cap"></i> Estudantes</h3>
+							<p class="fragment">De programação e desenvolvimento</p>
+						</div>
+					</div>
+					<div class="feature-cards" style="margin-top: 2rem;">
+						<div class="feature-card">
+							<h3><i class="fas fa-code"></i> Desenvolvedores Multilinguagem</h3>
+							<p class="fragment">Que trabalham com diversas tecnologias</p>
+						</div>
+					</div>
+				</section>
+			</section>
+
+			<!-- Slide final -->
+			<section class="final-slide">
+				<div class="thank-you">
+					<i class="fas fa-heart"></i> Obrigado!
+				</div>
+			</section>
 		</div>
+	</div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
-
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		Reveal.initialize({
+			hash: true,
+			controls: true,
+			progress: true,
+			center: true,
+			transition: 'slide',
+			backgroundTransition: 'fade',
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
 </html>
